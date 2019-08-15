@@ -22,7 +22,7 @@ function spot(command, inputCriteria) {
       }
       let artist = data.tracks.items[0].artists[0].name;
       let songName = data.tracks.items[1].name;
-      let spotifyURL = data.tracks.items[0].external_urls.spotify;
+      let spotifyURL = data.tracks.items[1].external_urls.spotify;
       let albumName = data.tracks.items[1].album.name;
 
       let artistString = "Artist: " + artist;
