@@ -16,7 +16,7 @@ function spot(command, inputCriteria) {
     var Spotify = require('node-spotify-api');
     var spotify = new Spotify(keys.spotify);
 
-    spotify.search({ type: 'track', query: inputCriteria }, function (err, data) {
+    spotify.search({ type: 'track', query: inputCriteria }, function (err, data){
       if (err) {
         return console.log('Error occurred: ' + err);
       }
@@ -24,45 +24,27 @@ function spot(command, inputCriteria) {
       let songName = data.tracks.items[1].name;
       let spotifyURL = data.tracks.items[0].external_urls.spotify;
       let albumName = data.tracks.items[1].album.name;
-      
-    let artistString = "artist: " + artist;
-    let songString = "song name: " + songName;
-    let urlString = "spotify url: " + spotifyURL;
-    let albumString = "album: " + album;
 
-    console.log(albumString);
-    console.log(songString);
-    console.log(urlString);
-    console.log(albumString);
-      
-    let spotifyArray = [artistString, songString, urlString, albumString];
+      let artistString = "artist: " + artist;
+      let songString = "song name: " + songName;
+      let urlString = "spotify url: " + spotifyURL;
+      let albumString = "album: " + albumName;
 
-      fs.appendFile("log.txt", spotifyArray, function(err) {
+      console.log(artistString);
+      console.log(songString);
+      console.log(urlString);
+      console.log(albumString);
+    
+      let spotifyArray = [artistString, songString, urlString, albumString];
+
+      fs.appendFile("./log.txt", spotifyArray, function (err) {
         if (err) {
           return console.log(err);
         }
         console.log(spotifyArray);
-      });   
-    })
-    .catch(function (error) {
-      if (error.response) {
-
-        console.log("---------------Data---------------");
-        console.log(error.response.data);
-        console.log("---------------Status---------------");
-        console.log(error.response.status);
-        console.log("---------------Status---------------");
-        console.log(error.response.headers);
-      } else if (error.request) {
-
-        console.log(error.request);
-      } else {
-
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-    });
-}
+  });
+});
+  }
 }
 
 
@@ -104,73 +86,72 @@ else if (command == "concert-this") {
       console.log(addressString);
       console.log(dateStringFormat);
 
-      let bandInfoArray = [artistName, venueString, addressString, dateStringFormat];
+      let bandInfoArray = [artistName, venueString, addressString, dateStringFormat] + "\n" ;
 
       fs.appendFile("log.txt", bandInfoArray, function (err) {
         if (err) {
           return console.log(err);
         }
         console.log(bandInfoArray);
-      });   
-})
-
-      .catch(function (error) {
-        if (error.response) {
-
-          console.log("---------------Data---------------");
-          console.log(error.response.data);
-          console.log("---------------Status---------------");
-          console.log(error.response.status);
-          console.log("---------------Status---------------");
-          console.log(error.response.headers);
-        } else if (error.request) {
-
-          console.log(error.request);
-        } else {
-
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
       });
-  }
+    })
 
-  else if (command == "movie-this") {
+    .catch(function (error) {
+      if (error.response) {
 
-    var queryUrl = "http://www.omdbapi.com/?t=" + inputCriteria + "&y=&plot=short&apikey=trilogy";
+        console.log("---------------Data---------------");
+        console.log(error.response.data);
+        console.log("---------------Status---------------");
+        console.log(error.response.status);
+        console.log("---------------Status---------------");
+        console.log(error.response.headers);
+      } else if (error.request) {
 
-    console.log(queryUrl);
+        console.log(error.request);
+      } else {
 
-    axios.get(queryUrl).then(
-      function (response) {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+}
 
-        let titleString = "Title: " + JSON.stringify(response.data.Title);
-        let releaseYearString = "Release Year: " + JSON.stringify(response.data.Year);
-        let imdbString = "IMDB Rating: " + JSON.stringify(response.data.imdbRating);
-        let rottenTomString = "Rotten Tomatoes: " + JSON.stringify(response.data.Ratings[1].Value);
-        let countryString = "Country of origin: " + JSON.stringify(response.data.Country);
-        let languageString = "Language: " + JSON.stringify(response.data.Language);
-        let plotString = "Plot: " + JSON.stringify(response.data.Plot);
-        let actorsString = "Actors: " + JSON.stringify(response.data.Actors);
+else if (command == "movie-this") {
 
-        console.log(titleString);
-        console.log(releaseYearString);
-        console.log(imdbString);
-        console.log(rottenTomString);
-        console.log(countryString);
-        console.log(languageString);
-        console.log(plotString);
-        console.log(actorsString);
+  const queryUrl = "http://www.omdbapi.com/?t=" + inputCriteria + "&y=&plot=short&apikey=trilogy";
 
-        let movieArray = [titleString, releaseYearString, imdbString, rottenTomString, countryString, languageString, plotString, actorsString];
+  console.log(queryUrl);
 
-        fs.appendFile("log.txt", movieArray, function (err) {
-          if (err) {
-            return console.log(err);
-          }
-          console.log(movieArray);
-        }); 
+  axios.get(queryUrl).then(
+    function (response) {
 
-      })
+      let titleString = "Title: " + JSON.stringify(response.data.Title);
+      let releaseYearString = "Release Year: " + JSON.stringify(response.data.Year);
+      let imdbString = "IMDB Rating: " + JSON.stringify(response.data.imdbRating);
+      let rottenTomString = "Rotten Tomatoes: " + JSON.stringify(response.data.Ratings[1].Value);
+      let countryString = "Country of origin: " + JSON.stringify(response.data.Country);
+      let languageString = "Language: " + JSON.stringify(response.data.Language);
+      let plotString = "Plot: " + JSON.stringify(response.data.Plot);
+      let actorsString = "Actors: " + JSON.stringify(response.data.Actors);
+
+      console.log(titleString);
+      console.log(releaseYearString);
+      console.log(imdbString);
+      console.log(rottenTomString);
+      console.log(countryString);
+      console.log(languageString);
+      console.log(plotString);
+      console.log(actorsString);
+      let movieArray = [titleString, releaseYearString, imdbString, rottenTomString, countryString, languageString, plotString, actorsString]+ "\n" ;
+      
+      
+      fs.appendFile("log.txt", movieArray, function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log(movieArray);
+      });
+  })
       .catch(function (error) {
         if (error.response) {
 
