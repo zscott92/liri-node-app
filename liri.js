@@ -25,17 +25,17 @@ function spot(command, inputCriteria) {
       let spotifyURL = data.tracks.items[0].external_urls.spotify;
       let albumName = data.tracks.items[1].album.name;
 
-      let artistString = "artist: " + artist;
-      let songString = "song name: " + songName;
-      let urlString = "spotify url: " + spotifyURL;
-      let albumString = "album: " + albumName;
+      let artistString = "Artist: " + artist;
+      let songString = " Song: " + songName;
+      let urlString = " URL: " + spotifyURL;
+      let albumString = " Album: " + albumName;
 
       console.log(artistString);
       console.log(songString);
       console.log(urlString);
       console.log(albumString);
     
-      let spotifyArray = [artistString, songString, urlString, albumString];
+      let spotifyArray = [artistString, songString, urlString, albumString + "\n"];
 
       fs.appendFile("./log.txt", spotifyArray, function (err) {
         if (err) {
@@ -66,7 +66,7 @@ else if (command == "spotify-this-song") {
 }
   
 else if (command == "concert-this") {
-  var bandsInTown = "https://rest.bandsintown.com/artists/" + inputCriteria + "/events?app_id=codingbootcamp&date=all";;
+  var bandsInTown = "https://rest.bandsintown.com/artists/" + inputCriteria + "/events?app_id=codingbootcamp&date=upcoming";;
   axios.get(bandsInTown).then(
     function (response) {
 
@@ -76,10 +76,10 @@ else if (command == "concert-this") {
       let country = response.data[0].venue.country;
       let date = response.data[0].datetime;
 
-      let artistName = inputCriteria + "";
-      let venueString = "Will be playing live at: " + venueName;
-      let addressString = "Located in " + city + ", " + state + ". " + country;
-      let dateStringFormat = "On " + date;
+      let artistName = "Performer " + inputCriteria + "";
+      let venueString = " will be playing live at: " + venueName;
+      let addressString = " in " + city + ", " + state + ". " + country;
+      let dateStringFormat = " on " + date;
 
       console.log(artistName);
       console.log(venueString);
