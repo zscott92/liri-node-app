@@ -24,10 +24,7 @@ function spot(command, inputCriteria) {
       console.log(data.tracks.items[0].artists[0].name);
       console.log(JSON.stringify(data.tracks.items[1].name));
       console.log(data.tracks.items[0].external_urls.spotify);
-      console.log(data.tracks.items[1].album.name)
-      // console.log(JSON.stringify(data.tracks.items[3]));
-
-      
+      console.log(data.tracks.items[1].album.name);
     });
   }
 }
@@ -58,8 +55,7 @@ else if (command == "concert-this") {
 
       .catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
+
           console.log("---------------Data---------------");
           console.log(error.response.data);
           console.log("---------------Status---------------");
@@ -67,11 +63,10 @@ else if (command == "concert-this") {
           console.log("---------------Status---------------");
           console.log(error.response.headers);
         } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an object that comes back with details pertaining to the error that occurred.
+
           console.log(error.request);
         } else {
-          // Something happened in setting up the request that triggered an Error
+
           console.log("Error", error.message);
         }
         console.log(error.config);
@@ -79,12 +74,9 @@ else if (command == "concert-this") {
   }
 
   else if (command == "movie-this") {
-    // Grab the movieName which will always be the third node argument.
 
-    // Then run a request with axios to the OMDB API with the movie specified
     var queryUrl = "http://www.omdbapi.com/?t=" + inputCriteria + "&y=&plot=short&apikey=trilogy";
 
-    // This line is just to help us debug against the actual URL.
     console.log(queryUrl);
 
     axios.get(queryUrl).then(
@@ -100,8 +92,7 @@ else if (command == "concert-this") {
       })
       .catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
+
           console.log("---------------Data---------------");
           console.log(error.response.data);
           console.log("---------------Status---------------");
@@ -109,11 +100,9 @@ else if (command == "concert-this") {
           console.log("---------------Status---------------");
           console.log(error.response.headers);
         } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an object that comes back with details pertaining to the error that occurred.
+
           console.log(error.request);
         } else {
-          // Something happened in setting up the request that triggered an Error
           console.log("Error", error.message);
         }
         console.log(error.config);
